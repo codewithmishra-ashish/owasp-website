@@ -14,8 +14,8 @@
     />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <style>
       body {
@@ -26,6 +26,19 @@
         overflow-x: hidden;
         position: relative;
         margin: 0;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #161b22;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #00ff00;
+        border-radius: 5px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #00cc00;
       }
       .matrix-bg {
         position: fixed;
@@ -44,7 +57,7 @@
       .navbar {
         background-color: #161b22;
         border-bottom: 2px solid #00ff00;
-        padding: 20px 0;
+        padding: 10px 0;
         box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
         transition: background-color 0.3s ease;
         position: sticky;
@@ -52,7 +65,7 @@
         z-index: 1000;
       }
       .navbar-brand {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
         font-weight: 700;
         color: #00ff00 !important;
         text-shadow: 0 0 5px #00ff00;
@@ -63,9 +76,9 @@
       }
       .nav-link {
         color: #00ff00 !important;
-        margin: 0 25px;
+        margin: 0 15px;
         text-transform: uppercase;
-        font-size: 1.1rem;
+        font-size: 1rem;
         position: relative;
         transition: all 0.3s ease;
       }
@@ -129,6 +142,13 @@
         content: "[#] ";
         color: #00ff00;
       }
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        align-items: stretch;
+      }
       .card {
         background-color: #161b22;
         border: 1px solid #00ff00;
@@ -136,59 +156,35 @@
         transition: all 0.3s ease;
         margin-bottom: 30px;
         border-radius: 5px;
-        position: relative;
-        perspective: 1000px;
         padding: 15px;
-      }
-      .card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transition: transform 0.6s;
-        transform-style: preserve-3d;
-      }
-      .card:hover .card-inner {
-        transform: rotateY(180deg);
-      }
-      .card-front,
-      .card-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-      }
-      .card-front {
-        background-color: #161b22;
-      }
-      .card-back {
-        background-color: #1a222c;
-        color: #00ff00;
-        transform: rotateY(180deg);
+        min-height: 350px;
         display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        text-align: center;
+        flex-direction: column;
+        justify-content: space-between;
       }
       .card-img-top {
-        height: 250px;
+        height: 200px;
         object-fit: cover;
         border-bottom: 1px solid #00ff00;
         transition: opacity 0.3s;
-        border-radius: 5px;
+        border-radius: 5px 5px 0 0;
       }
       .card-body {
         padding: 20px;
         background-color: #1a222c;
         color: #00ff00;
         text-shadow: 0 0 2px #00ff00;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
       }
       .team-card .card-img-top {
         height: 150px;
+        width: 150px;
         object-fit: cover;
         border-radius: 50%;
         margin: 20px auto;
-        width: 150px;
       }
       .team-card .card-body {
         padding: 15px;
@@ -221,20 +217,6 @@
         box-shadow: 0 0 15px #00ff00;
         transform: scale(1.05);
       }
-      .btn-refresh {
-        background-color: #ff0000;
-        border: 2px solid #ff0000;
-        color: #ffffff;
-        padding: 10px 20px;
-        margin: 5px;
-        transition: all 0.3s ease;
-      }
-      .btn-refresh:hover {
-        background-color: #cc0000;
-        border-color: #cc0000;
-        color: #ffffff;
-        transform: scale(1.05);
-      }
       .threat-ticker {
         background-color: #161b22;
         color: #ff0000;
@@ -244,14 +226,11 @@
         position: relative;
         overflow: hidden;
         border-bottom: 1px solid #ff0000;
-        margin-bottom: 60px;
+        margin-bottom: 10px;
       }
       .threat-ticker span {
         display: inline-block;
         animation: ticker 20s linear infinite;
-      }
-      .news-card .card-back {
-        background-color: #2a1c22;
       }
       .modal-content {
         background-color: #161b22;
@@ -268,38 +247,6 @@
         border: 1px solid #00ff00;
         color: #00ff00;
       }
-      .swiper {
-        width: 100%;
-        padding: 20px 0;
-        background-color: #1a222c;
-        border: 1px solid #00ff00;
-        border-radius: 5px;
-        margin-top: 40px;
-      }
-      .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #1a222c;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-      .swiper-slide img {
-        display: block;
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-      }
-      .countdown {
-        text-align: center;
-        font-size: 1.2rem;
-        margin: 40px 0;
-        color: #ff0000;
-        background-color: #161b22;
-        padding: 20px;
-        border: 2px solid #ff0000;
-        border-radius: 5px;
-      }
       .poll-container {
         background-color: #1a222c;
         padding: 20px;
@@ -313,7 +260,7 @@
         align-items: center;
       }
       .progress {
-        height: 20px;
+        height: 30px;
         background-color: #161b22;
         border: 1px solid #00ff00;
         margin-top: 5px;
@@ -352,16 +299,40 @@
         border: 0;
         height: 2px;
         background: #00ff00;
-        margin: 40px 0;
+        margin: 60px 0;
         width: 100%;
       }
       footer {
         background-color: #161b22;
         color: #00ff00;
-        padding: 40px 0;
+        padding: 15px 5px;
         text-align: center;
         border-top: 2px solid #00ff00;
-        font-size: 1rem;
+        font-size: 0.9rem;
+      }
+      .social-links {
+        position: fixed;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 1000;
+      }
+      .social-links a {
+        color: #00ff00;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+      .social-links a:hover {
+        color: #00cc00;
+        transform: scale(1.2);
+        text-shadow: 0 0 8px #00ff00;
+      }
+      .card-container .col-md-3 {
+        flex: 0 0 calc(25% - 20px);
+        max-width: calc(25% - 20px);
       }
       @keyframes glitch {
         2%,
@@ -392,7 +363,7 @@
           font-size: 2.5rem;
         }
         .nav-link {
-          margin: 15px 0;
+          margin: 10px 0;
         }
         .team-card .card-img-top {
           height: 120px;
@@ -404,44 +375,46 @@
         .team-card p {
           font-size: 0.9rem;
         }
-        .swiper-slide img {
-          height: 100px;
-        }
-        .scroll-to-top {
-          width: 40px;
-          height: 40px;
-          font-size: 1.2rem;
-        }
-        .section-divider {
-          margin: 20px 0;
-        }
         .card {
           margin-bottom: 20px;
+          min-height: 300px;
         }
-        .countdown {
-          margin: 20px 0;
+        .card-img-top {
+          height: 150px;
         }
         .poll-option {
           margin: 10px 0;
+        }
+        .social-links {
+          right: 5px;
+          gap: 10px;
+        }
+        .social-links a {
+          font-size: 1.2rem;
+        }
+        .card-container .col-md-3 {
+          flex: 0 0 calc(50% - 20px);
+          max-width: calc(50% - 20px);
+        }
+      }
+      @media (max-width: 576px) {
+        .card-container .col-md-3 {
+          flex: 0 0 calc(100% - 20px);
+          max-width: calc(100% - 20px);
         }
       }
     </style>
   </head>
   <body>
-    <!-- Matrix Background -->
     <div class="matrix-bg">
       <canvas id="matrix"></canvas>
     </div>
-
-    <!-- Threat Ticker -->
     <div class="threat-ticker">
       <span
         >[ALERT] Latest Cybersecurity Threat: New Ransomware Variant Targeting
-        Educational Institutions - Stay Vigilant!    </span
+        Educational Institutions - Stay Vigilant!   </span
       >
     </div>
-
-    <!-- Navbar -->
     <nav
       class="navbar navbar-expand-lg navbar-dark"
       data-aos="fade-down"
@@ -461,31 +434,20 @@
           <ul class="navbar-nav ms-auto">
             <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="#mission">Mission</a>
+              <a class="nav-link" href="#mission">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#about">About</a>
+              <a class="nav-link" href="#operations">Operations</a>
             </li>
-            <li class="nav-item"><a class="nav-link" href="#game">Game</a></li>
             <li class="nav-item">
-              <a class="nav-link" href="#events">Events</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="#resources">Resources</a>
+              <a class="nav-link" href="#intel">Intel</a>
             </li>
             <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="#membership">Membership</a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="#volunteer">Volunteer</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#stories">Stories</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#impact">Impact</a>
+              <a class="nav-link" href="#membership">Sponsorship</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#contact">Contact</a>
@@ -494,8 +456,7 @@
         </div>
       </div>
     </nav>
-
-    <!-- Hero Section -->
+    <!-- Hero Section: Main landing section with call-to-action -->
     <section id="home" class="hero">
       <div class="container">
         <h1 data-aos="fade-in" data-aos-duration="1000">Secure the Breach</h1>
@@ -503,7 +464,7 @@
           OWASP Maulana Azad National Institute of Technology Chapter - Bhopal
         </p>
         <a
-          href="#events"
+          href="#operations"
           class="btn btn-primary btn-lg"
           data-aos="fade-up"
           data-aos-delay="600"
@@ -512,8 +473,18 @@
         >
       </div>
     </section>
-
-    <!-- Mission Statement -->
+    <div class="social-links">
+      <a href="https://www.instagram.com/owasp_nitb" target="_blank"
+        ><i class="fab fa-instagram"></i
+      ></a>
+      <a href="https://www.linkedin.com/in/owaspnitb" target="_blank"
+        ><i class="fab fa-linkedin-in"></i
+      ></a>
+      <a href="https://twitter.com/owasp_nitb" target="_blank"
+        ><i class="fab fa-twitter"></i
+      ></a>
+    </div>
+    <!-- Mission Statement Section: Overview of the chapter's goals -->
     <section id="mission" class="container">
       <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
         Mission Statement
@@ -534,8 +505,7 @@
         </div>
       </div>
     </section>
-
-    <!-- About Section -->
+    <!-- About Section: Details about the chapter's identity -->
     <section id="about" class="container">
       <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
         Identity
@@ -557,174 +527,125 @@
         </div>
       </div>
     </section>
-
-    <!-- Interactive Game Section -->
-    <section id="game" class="container">
-      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
-        Spot the Vulnerability
-      </h2>
-      <div class="row">
-        <div
-          class="col-md-8 offset-md-2"
-          data-aos="fade-up"
-          data-aos-duration="1000"
-        >
-          <div class="card">
-            <div class="card-body text-center">
-              <h5 class="card-title">Challenge: Find the Security Issue</h5>
-              <p id="challengeText" class="mt-3"></p>
-              <pre id="challengeCode" class="mb-3"></pre>
-              <div id="challengeOptions" class="mb-3"></div>
-              <div class="d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary" id="gameSubmit">
-                  SUBMIT
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-refresh ms-3"
-                  onclick="refreshChallenge()"
-                >
-                  Refresh Challenge
-                </button>
-              </div>
-              <p id="gameResult" class="mt-3"></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Events Section with Countdown -->
-    <section id="events" class="container">
+    <!-- Operations Section: Upcoming events and calendar -->
+    <section id="operations" class="container">
       <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
         Operations
       </h2>
-
-      <!-- Upcoming Events -->
-      <div class="row mb-5">
-        <h4 class="text-center mb-4" data-aos="fade-in" data-aos-duration="800">
-          Upcoming Events
-        </h4>
+      <!-- Upcoming Events Subsection: List of upcoming chapter events -->
+      <h4 class="text-center mb-4" data-aos="fade-in" data-aos-duration="800">
+        Upcoming Events
+      </h4>
+      <div class="card-container mb-5">
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="100"
         >
           <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <img
-                  src="https://images.unsplash.com/photo-1558499932-9609acb6f161?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                  class="card-img-top"
-                  alt="Workshop"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Cybersecurity Basics Workshop</h5>
-                  <p class="card-text">
-                    March 15, 2025 - Kickstart your cybersecurity journey.
-                  </p>
-                  <button
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#eventModal1"
-                  >
-                    REGISTER
-                  </button>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>
-                  Learn the fundamentals of cybersecurity in this hands-on
-                  workshop!
-                </p>
-              </div>
+            <img
+              src="https://images.unsplash.com/photo-1558499932-9609acb6f161?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Workshop"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Cybersecurity Basics Workshop</h5>
+              <p class="card-text">
+                March 15, 2025 - Kickstart your cybersecurity journey.
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#eventModal1"
+              >
+                REGISTER
+              </button>
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="200"
         >
           <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <img
-                  src="https://images.unsplash.com/photo-1630091160998-6e524e4eabf8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                  class="card-img-top"
-                  alt="Seminar"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Advanced Threats Seminar</h5>
-                  <p class="card-text">
-                    March 20, 2025 - Explore cutting-edge attack vectors.
-                  </p>
-                  <button
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#eventModal2"
-                  >
-                    REGISTER
-                  </button>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>
-                  Dive deep into the latest cybersecurity threats and defenses!
-                </p>
-              </div>
+            <img
+              src="https://images.unsplash.com/photo-1630091160998-6e524e4eabf8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Seminar"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Advanced Threats Seminar</h5>
+              <p class="card-text">
+                March 20, 2025 - Explore cutting-edge attack vectors.
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#eventModal2"
+              >
+                REGISTER
+              </button>
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="300"
         >
           <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <img
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                  class="card-img-top"
-                  alt="CTF"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Capture The Flag (CTF)</h5>
-                  <p class="card-text">
-                    March 25, 2025 - Test your skills in a real-world scenario.
-                  </p>
-                  <button
-                    class="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#eventModal3"
-                  >
-                    REGISTER
-                  </button>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Compete in a thrilling CTF to hack and defend systems!</p>
-              </div>
+            <img
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="CTF"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Capture The Flag (CTF)</h5>
+              <p class="card-text">
+                March 25, 2025 - Test your skills in a real-world scenario.
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#eventModal3"
+              >
+                REGISTER
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="400"
+        >
+          <div class="card">
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Bootcamp"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Secure Coding Bootcamp</h5>
+              <p class="card-text">
+                April 10, 2025 - Master secure coding techniques.
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#eventModal4"
+              >
+                REGISTER
+              </button>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Next Event Countdown -->
-      <div
-        class="countdown text-center"
-        data-aos="fade-in"
-        data-aos-duration="800"
-      >
-        <h4 class="mb-3">Next Event Countdown</h4>
-        <p id="countdownTimer"></p>
-      </div>
-
-      <!-- Event Calendar -->
       <div class="section-divider"></div>
       <div class="row">
         <h4
@@ -752,113 +673,98 @@
         </div>
       </div>
     </section>
-
-    <!-- Cybersecurity News Section -->
-    <section id="news" class="container">
+    <!-- Cyber Threat Intel Section: Latest security news and polls -->
+    <section id="intel" class="container">
       <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
         Cyber Threat Intel
       </h2>
-      <div class="row mb-5">
+      <div class="card-container mb-5">
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="100"
         >
-          <div class="card news-card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <h5 class="card-title">Ransomware Surge in 2025</h5>
-                  <p class="card-text">
-                    March 07, 2025 - A new ransomware variant is targeting
-                    educational institutions. Learn how to protect your systems.
-                  </p>
-                  <a
-                    href="https://www.cybersecuritydive.com/news/ransomware-education-sector/710025/"
-                    target="_blank"
-                    class="btn btn-primary"
-                    >READ MORE</a
-                  >
-                </div>
-              </div>
-              <div class="card-back">
-                <p>
-                  Ransomware attacks have increased by 20% this year. Stay
-                  vigilant!
-                </p>
-              </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Ransomware Surge in 2025</h5>
+              <p class="card-text">
+                March 07, 2025 - New ransomware targets schools.
+              </p>
+              <a
+                href="https://www.cybersecuritydive.com/news/ransomware-education-sector/710025/"
+                target="_blank"
+                class="btn btn-primary"
+                >READ MORE</a
+              >
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="200"
         >
-          <div class="card news-card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <h5 class="card-title">Phishing Attacks on the Rise</h5>
-                  <p class="card-text">
-                    March 05, 2025 - Phishing campaigns have increased by 30%
-                    this year. Stay safe with these tips.
-                  </p>
-                  <a
-                    href="https://www.cisa.gov/news-events/cybersecurity-advisories"
-                    target="_blank"
-                    class="btn btn-primary"
-                    >READ MORE</a
-                  >
-                </div>
-              </div>
-              <div class="card-back">
-                <p>
-                  Phishing emails often trick users into revealing sensitive
-                  data. Be cautious!
-                </p>
-              </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Phishing Attacks on the Rise</h5>
+              <p class="card-text">
+                March 05, 2025 - 30% increase in phishing this year.
+              </p>
+              <a
+                href="https://www.cisa.gov/news-events/cybersecurity-advisories"
+                target="_blank"
+                class="btn btn-primary"
+                >READ MORE</a
+              >
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="300"
         >
-          <div class="card news-card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <h5 class="card-title">Zero-Day Exploits in 2025</h5>
-                  <p class="card-text">
-                    March 03, 2025 - New zero-day vulnerabilities found in
-                    popular software. Patch your systems now.
-                  </p>
-                  <a
-                    href="https://www.cve.mitre.org/"
-                    target="_blank"
-                    class="btn btn-primary"
-                    >READ MORE</a
-                  >
-                </div>
-              </div>
-              <div class="card-back">
-                <p>
-                  Zero-day exploits can bypass traditional defenses. Update your
-                  software!
-                </p>
-              </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Zero-Day Exploits in 2025</h5>
+              <p class="card-text">
+                March 03, 2025 - New vulnerabilities in software.
+              </p>
+              <a
+                href="https://www.cve.mitre.org/"
+                target="_blank"
+                class="btn btn-primary"
+                >READ MORE</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="400"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">IoT Security Threats</h5>
+              <p class="card-text">
+                March 01, 2025 - IoT devices under attack.
+              </p>
+              <a
+                href="https://owasp.org/www-project-internet-of-things/"
+                target="_blank"
+                class="btn btn-primary"
+                >READ MORE</a
+              >
             </div>
           </div>
         </div>
       </div>
       <div class="section-divider"></div>
-
-      <!-- Community Poll -->
       <div class="row">
         <div
           class="col-md-6 offset-md-3"
@@ -904,308 +810,255 @@
         </div>
       </div>
     </section>
-
-    <!-- Resources Section -->
-    <section id="resources" class="container">
-      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
-        Arsenal
-      </h2>
-      <div class="row">
-        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
-          <h4>Cybersecurity Tools</h4>
-          <ul>
-            <li>
-              <a href="https://owasp.org/www-project-zap/" target="_blank"
-                >OWASP ZAP</a
-              >
-              - Automated penetration testing
-            </li>
-            <li>
-              <a
-                href="https://owasp.org/www-project-juice-shop/"
-                target="_blank"
-                >OWASP Juice Shop</a
-              >
-              - Vulnerable app for training
-            </li>
-            <li>
-              <a
-                href="https://owasp.org/www-community/OWASP_Top_Ten"
-                target="_blank"
-                >OWASP Top 10</a
-              >
-              - Critical security risks
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
-          <h4>MANIT Resources</h4>
-          <ul>
-            <li><a href="#">Cybersecurity Basics Guide (PDF)</a></li>
-            <li><a href="#">CTF Starter Pack (PDF)</a></li>
-            <li><a href="#">Secure Coding Checklist (PDF)</a></li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- Team Section with Command Unit -->
+    <!-- Team Section: Leadership and core members -->
     <section id="team" class="container">
       <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
         Command Unit
       </h2>
-
-      <!-- Chapter Leaders -->
-      <div class="row mb-5">
-        <h4 class="text-center mb-4" data-aos="fade-in" data-aos-duration="800">
-          Chapter Leaders
-        </h4>
+      <!-- Chapter Leaders Subsection: Leadership team profiles -->
+      <h4 class="text-center mb-4" data-aos="fade-in" data-aos-duration="800">
+        Chapter Leaders
+      </h4>
+      <div class="card-container mb-6">
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="100"
         >
           <div class="card team-card">
-            <div class="card-inner">
-              <div class="card-front">
-                <img
-                  src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                  class="card-img-top"
-                  alt="Deepak Singh Tomar"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Deepak Singh Tomar</h5>
-                  <p class="card-text">
-                    Founder & Chapter Leader<br />Strategic Director
-                  </p>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Leading the charge to make MANIT a cybersecurity hub!</p>
-              </div>
+            <img
+              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Deepak Singh Tomar"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Deepak Singh Tomar</h5>
+              <p class="card-text">
+                Founder & Chapter Leader<br />Strategic Director
+              </p>
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="200"
         >
           <div class="card team-card">
-            <div class="card-inner">
-              <div class="card-front">
-                <img
-                  src="https://images.unsplash.com/photo-1534528744314-0a5c9ee6c9a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                  class="card-img-top"
-                  alt="Durgesh Shah"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Durgesh Shah</h5>
-                  <p class="card-text">Chapter Leader<br />Event Coordinator</p>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Organizing events to empower our community!</p>
-              </div>
+            <img
+              src="https://images.unsplash.com/photo-1534528744314-0a5c9ee6c9a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Durgesh Shah"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Durgesh Shah</h5>
+              <p class="card-text">Chapter Leader<br />Event Coordinator</p>
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="300"
         >
           <div class="card team-card">
-            <div class="card-inner">
-              <div class="card-front">
-                <img
-                  src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                  class="card-img-top"
-                  alt="Gautam Pratap"
-                />
-                <div class="card-body">
-                  <h5 class="card-title">Gautam Pratap</h5>
-                  <p class="card-text">Chapter Leader<br />Technical Lead</p>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Driving technical excellence in cybersecurity!</p>
-              </div>
+            <img
+              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Gautam Pratap"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Gautam Pratap</h5>
+              <p class="card-text">Chapter Leader<br />Technical Lead</p>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Core Members Spotlight -->
       <div class="section-divider"></div>
-      <div class="row">
-        <h4
-          class="text-center mb-4 mt-5"
-          data-aos="fade-in"
-          data-aos-duration="800"
-        >
-          Core Members Spotlight
-        </h4>
-        <div class="col-md-12">
-          <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div class="card team-card">
-                  <div class="card-inner">
-                    <div class="card-front">
-                      <img
-                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                        class="card-img-top"
-                        alt="Sanjita"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Sanjita</h5>
-                        <p class="card-text">Technical Executive</p>
-                      </div>
-                    </div>
-                    <div class="card-back">
-                      <p>Passionate about securing systems!</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card team-card">
-                  <div class="card-inner">
-                    <div class="card-front">
-                      <img
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                        class="card-img-top"
-                        alt="Khushboo Gond"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Khushboo Gond</h5>
-                        <p class="card-text">Technical Executive</p>
-                      </div>
-                    </div>
-                    <div class="card-back">
-                      <p>Exploring new cybersecurity challenges!</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card team-card">
-                  <div class="card-inner">
-                    <div class="card-front">
-                      <img
-                        src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                        class="card-img-top"
-                        alt="Raghav Verma"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Raghav Verma</h5>
-                        <p class="card-text">Web Developer</p>
-                      </div>
-                    </div>
-                    <div class="card-back">
-                      <p>Building secure web applications!</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="swiper-slide">
-                <div class="card team-card">
-                  <div class="card-inner">
-                    <div class="card-front">
-                      <img
-                        src="https://images.unsplash.com/photo-1534528744314-0a5c9ee6c9a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
-                        class="card-img-top"
-                        alt="Pranjali Tiwari"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title">Pranjali Tiwari</h5>
-                        <p class="card-text">Graphic Designer</p>
-                      </div>
-                    </div>
-                    <div class="card-back">
-                      <p>Designing visuals for a safer digital world!</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Community Stories Section -->
-    <section id="stories" class="container">
-      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
-        Community Stories
-      </h2>
-      <div class="row">
+      <!-- Core Members Spotlight Subsection: Highlighting key team members -->
+      <h4
+        class="text-center mb-4 mt-5"
+        data-aos="fade-in"
+        data-aos-duration="800"
+      >
+        Core Members Spotlight
+      </h4>
+      <div class="card-container mb-6">
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="100"
         >
-          <div class="card">
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Sanjita"
+            />
             <div class="card-body">
-              <h5 class="card-title">Sanjana's Journey</h5>
-              <p class="card-text">
-                “Joining OWASP MANIT helped me transition from a beginner to
-                leading a CTF team. The workshops were a game-changer!”
-              </p>
+              <h5 class="card-title">Sanjita</h5>
+              <p class="card-text">Technical Executive</p>
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="200"
         >
-          <div class="card">
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Khushboo Gond"
+            />
             <div class="card-body">
-              <h5 class="card-title">Raghav's Success</h5>
-              <p class="card-text">
-                “Developing secure websites through OWASP opened doors to
-                internships in cybersecurity firms.”
-              </p>
+              <h5 class="card-title">Khushboo Gond</h5>
+              <p class="card-text">Technical Executive</p>
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="300"
         >
-          <div class="card">
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Athiya Barwal"
+            />
             <div class="card-body">
-              <h5 class="card-title">Kavya's Impact</h5>
-              <p class="card-text">
-                “Organizing awareness campaigns taught me leadership and made
-                our campus safer.”
-              </p>
+              <h5 class="card-title">Athiya Barwal</h5>
+              <p class="card-text">Technical Executive</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="400"
+        >
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1534528744314-0a5c9ee6c9a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Anishaq Agarwal"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Anishaq Agarwal</h5>
+              <p class="card-text">Technical Executive</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="500"
+        >
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Raghav Verma"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Raghav Verma</h5>
+              <p class="card-text">Web Development</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="600"
+        >
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Ashish Mishra"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Ashish Mishra</h5>
+              <p class="card-text">Web Development</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="700"
+        >
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Prabhat"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Prabhat</h5>
+              <p class="card-text">Content Writer</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="800"
+        >
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1534528744314-0a5c9ee6c9a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Pranjali Tiwari"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Pranjali Tiwari</h5>
+              <p class="card-text">Graphic Designer</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="900"
+        >
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Vishal Kumar"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Vishal Kumar</h5>
+              <p class="card-text">Video Editor</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Volunteer Opportunities Section -->
+    <!-- Volunteer Opportunities Section: Opportunities for contribution -->
     <section id="volunteer" class="container">
       <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
         Volunteer Opportunities
       </h2>
-      <div class="row">
+      <div class="card-container">
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="100"
@@ -1213,10 +1066,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Event Organizer</h5>
-              <p class="card-text">
-                Help plan and execute workshops and CTFs. No prior experience
-                needed!
-              </p>
+              <p class="card-text">Plan and execute workshops and CTFs.</p>
               <button
                 class="btn btn-primary"
                 data-bs-toggle="modal"
@@ -1228,7 +1078,7 @@
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="200"
@@ -1237,8 +1087,7 @@
             <div class="card-body">
               <h5 class="card-title">Content Creator</h5>
               <p class="card-text">
-                Write blogs or create social media content to spread
-                cybersecurity awareness.
+                Write blogs or create social media content.
               </p>
               <button
                 class="btn btn-primary"
@@ -1251,7 +1100,7 @@
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="300"
@@ -1259,9 +1108,27 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Technical Mentor</h5>
-              <p class="card-text">
-                Guide beginners in coding and security practices during events.
-              </p>
+              <p class="card-text">Guide beginners in coding and security.</p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#volunteerModal"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="400"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Outreach Lead</h5>
+              <p class="card-text">Promote cybersecurity on campus.</p>
               <button
                 class="btn btn-primary"
                 data-bs-toggle="modal"
@@ -1274,32 +1141,24 @@
         </div>
       </div>
     </section>
-
-    <!-- Membership Section with Progress Tracker -->
+    <!-- Sponsorship Application Section: Form for sponsorship requests -->
     <section id="membership" class="container">
       <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
-        Operative Enrollment
+        Sponsorship Application
       </h2>
       <div class="row">
         <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
-          <h4>Join the Community</h4>
+          <h4>Support Our Mission</h4>
           <p>
-            Be part of a vibrant society dedicated to cybersecurity! We organize
-            CTFs, workshops, and more to enhance your skills.
+            Become a sponsor to support our cybersecurity initiatives and gain
+            visibility among our community!
           </p>
-          <h5>Why Join Us?</h5>
+          <h5>Benefits of Sponsorship</h5>
           <ul>
-            <li>
-              Learn practical cybersecurity skills through hands-on workshops.
-            </li>
-            <li>
-              Network with industry experts and peers passionate about security.
-            </li>
-            <li>
-              Access exclusive resources and certifications (e.g., OWASP
-              training).
-            </li>
-            <li>Contribute to a safer digital future for MANIT and beyond.</li>
+            <li>Brand exposure at events.</li>
+            <li>Networking with students and professionals.</li>
+            <li>Support for educational resources.</li>
+            <li>Recognition on our platform.</li>
           </ul>
         </div>
         <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
@@ -1323,7 +1182,7 @@
                   type="text"
                   class="form-control"
                   id="name"
-                  placeholder="Operative Name"
+                  placeholder="Organization Name"
                   required
                 />
               </div>
@@ -1341,7 +1200,7 @@
                   type="email"
                   class="form-control"
                   id="email"
-                  placeholder="Email"
+                  placeholder="Contact Email"
                   required
                 />
               </div>
@@ -1362,10 +1221,15 @@
             </div>
             <div id="step3" style="display: none">
               <p>Please confirm your details:</p>
-              <p><strong>Name:</strong> <span id="confirmName"></span></p>
-              <p><strong>Email:</strong> <span id="confirmEmail"></span></p>
+              <p>
+                <strong>Organization Name:</strong>
+                <span id="confirmName"></span>
+              </p>
+              <p>
+                <strong>Contact Email:</strong> <span id="confirmEmail"></span>
+              </p>
               <button type="submit" class="btn btn-primary">
-                Confirm Enrollment
+                Confirm Sponsorship
               </button>
               <button
                 type="button"
@@ -1380,15 +1244,14 @@
         </div>
       </div>
     </section>
-
-    <!-- Community Impact Section -->
+    <!-- Community Impact Section: Highlights of chapter achievements -->
     <section id="impact" class="container">
       <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
         Community Impact
       </h2>
-      <div class="row">
+      <div class="card-container">
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="100"
@@ -1396,15 +1259,12 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Workshops Conducted</h5>
-              <p class="card-text">
-                Hosted 10+ workshops in 2024, educating over 500 students on
-                secure coding and threat mitigation.
-              </p>
+              <p class="card-text">10+ workshops in 2024, 500+ students.</p>
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="200"
@@ -1412,15 +1272,12 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Awareness Campaigns</h5>
-              <p class="card-text">
-                Organized 3 campus-wide campaigns on phishing and password
-                security, reaching 1000+ students.
-              </p>
+              <p class="card-text">3 campaigns, reached 1000+ students.</p>
             </div>
           </div>
         </div>
         <div
-          class="col-md-4"
+          class="col-12 col-md-3"
           data-aos="fade-up"
           data-aos-duration="800"
           data-aos-delay="300"
@@ -1428,17 +1285,26 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">Collaborations</h5>
-              <p class="card-text">
-                Partnered with MANIT’s IT department to secure campus servers,
-                reducing vulnerabilities by 40%.
-              </p>
+              <p class="card-text">Partnered with IT to secure servers.</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-3"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="400"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">CTF Success</h5>
+              <p class="card-text">Trained 200+ in hacking scenarios.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Contact Section -->
+    <!-- Contact Section: Communication details and feedback form -->
     <section id="contact" class="container">
       <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
         Secure Comms
@@ -1451,24 +1317,8 @@
           </p>
           <p>
             Reach out to our chapter leaders—Deepak, Durgesh, or Gautam—for more
-            information:
+            information.
           </p>
-          <p>Encrypted Channels:</p>
-          <a
-            href="https://www.instagram.com/owasp_nitb"
-            class="me-3"
-            target="_blank"
-            >Instagram: @owasp_nitb</a
-          ><br />
-          <a
-            href="https://www.linkedin.com/in/owaspnitb"
-            class="me-3"
-            target="_blank"
-            >LinkedIn: owaspnitb</a
-          ><br />
-          <a href="https://twitter.com/owasp_nitb" class="me-3" target="_blank"
-            >X: @owasp_nitb</a
-          >
         </div>
         <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
           <form id="feedbackForm">
@@ -1496,9 +1346,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Modals -->
-    <!-- Event Modals -->
     <div
       class="modal fade"
       id="eventModal1"
@@ -1667,8 +1514,62 @@
         </div>
       </div>
     </div>
-
-    <!-- Volunteer Modal -->
+    <div
+      class="modal fade"
+      id="eventModal4"
+      tabindex="-1"
+      aria-labelledby="eventModalLabel4"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eventModalLabel4">
+              Register for Secure Coding Bootcamp
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="eventForm4">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="eventName4"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="eventEmail4"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <p id="eventMessage4" class="mt-2"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div
       class="modal fade"
       id="volunteerModal"
@@ -1715,6 +1616,7 @@
                   <option value="event">Event Organizer</option>
                   <option value="content">Content Creator</option>
                   <option value="mentor">Technical Mentor</option>
+                  <option value="outreach">Outreach Lead</option>
                 </select>
               </div>
               <button type="submit" class="btn btn-primary">Apply</button>
@@ -1733,36 +1635,12 @@
         </div>
       </div>
     </div>
-
-    <!-- Scroll to Top Button -->
     <button class="scroll-to-top" id="scrollToTopBtn">↑</button>
-
-    <!-- Footer -->
     <footer data-aos="fade-up" data-aos-duration="800">
       <p>© 2025 OWASP MANIT Chapter | Powered by the OWASP Foundation</p>
-      <div class="mt-3">
-        <a
-          href="https://www.instagram.com/owasp_nitb"
-          target="_blank"
-          class="me-3"
-          >Instagram</a
-        >
-        <a
-          href="https://www.linkedin.com/in/owaspnitb"
-          target="_blank"
-          class="me-3"
-          >LinkedIn</a
-        >
-        <a href="https://twitter.com/owasp_nitb" target="_blank">X</a>
-      </div>
     </footer>
-
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
       AOS.init({ once: true, offset: 100 });
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -1773,8 +1651,6 @@
             .scrollIntoView({ behavior: "smooth" });
         });
       });
-
-      // Matrix Background Animation
       const canvas = document.getElementById("matrix");
       const ctx = canvas.getContext("2d");
       canvas.height = window.innerHeight;
@@ -1802,170 +1678,6 @@
         }
       }
       setInterval(draw, 33);
-
-      // Swiper Initialization
-      const swiper = new Swiper(".mySwiper", {
-        slidesPerView: 1,
-        spaceBetween: 30,
-        loop: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        breakpoints: {
-          768: {
-            slidesPerView: 2,
-          },
-          992: {
-            slidesPerView: 3,
-          },
-        },
-      });
-
-      // Challenges Data
-      const challenges = [
-        {
-          text: "Below is a code snippet. Can you spot the vulnerability?",
-          code: `<form action="/login" method="POST">
-    <input type="text" name="username">
-    <input type="text" name="password">
-    <input type="submit" value="Login">
-</form>`,
-          options: [
-            {
-              value: "A",
-              label: 'A) Password field should be type="password"',
-            },
-            { value: "B", label: "B) Form lacks CSRF token" },
-            { value: "C", label: "C) Both A and B" },
-          ],
-          correct: "C",
-          feedback: {
-            C: 'Correct! The password field should be type="password", and the form lacks a CSRF token.',
-            A: 'Partially correct! The password field should indeed be type="password", but the form also lacks a CSRF token.',
-            B: 'Partially correct! The form lacks a CSRF token, but the password field should also be type="password".',
-          },
-        },
-        {
-          text: "Identify the issue in this SQL query:",
-          code: `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`,
-          options: [
-            { value: "A", label: "A) SQL Injection vulnerability" },
-            { value: "B", label: "B) Password is not hashed" },
-            { value: "C", label: "C) Both A and B" },
-          ],
-          correct: "C",
-          feedback: {
-            C: "Correct! The query is vulnerable to SQL Injection, and the password should be hashed.",
-            A: "Partially correct! The query is indeed vulnerable to SQL Injection, but the password should also be hashed.",
-            B: "Partially correct! The password should be hashed, but the query is also vulnerable to SQL Injection.",
-          },
-        },
-        {
-          text: "What's wrong with this email link?",
-          code: `<a href="mailto:user@example.com?subject=Hello&body=Click here: http://malicious-site.com">Contact Us</a>`,
-          options: [
-            { value: "A", label: "A) Potential phishing risk" },
-            { value: "B", label: "B) Missing email validation" },
-            { value: "C", label: "C) No issues" },
-          ],
-          correct: "A",
-          feedback: {
-            A: "Correct! The link in the email body could lead to a phishing site.",
-            B: "Incorrect! Email validation isn't the primary issue here; the link poses a phishing risk.",
-            C: "Incorrect! The link in the email body could lead to a phishing site.",
-          },
-        },
-      ];
-
-      // Load Challenge
-      function loadChallenge(index) {
-        const challenge = challenges[index];
-        document.getElementById("challengeText").textContent = challenge.text;
-        document.getElementById(
-          "challengeCode"
-        ).innerHTML = `<code>${challenge.code}</code>`;
-        const optionsContainer = document.getElementById("challengeOptions");
-        optionsContainer.innerHTML = challenge.options
-          .map(
-            (option) => `
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="gameAnswer" id="gameAnswer${option.value}" value="${option.value}" required>
-                    <label class="form-check-label" for="gameAnswer${option.value}">${option.label}</label>
-                </div>
-            `
-          )
-          .join("");
-        document.getElementById("gameResult").textContent = "";
-        document.getElementById("gameSubmit").dataset.correct =
-          challenge.correct;
-        document.getElementById("gameSubmit").dataset.feedback = JSON.stringify(
-          challenge.feedback
-        );
-      }
-
-      // Initial Challenge Load
-      let currentChallengeIndex = 0;
-      loadChallenge(currentChallengeIndex);
-
-      // Refresh Challenge
-      function refreshChallenge() {
-        currentChallengeIndex = (currentChallengeIndex + 1) % challenges.length;
-        loadChallenge(currentChallengeIndex);
-      }
-
-      // Game Logic
-      document
-        .getElementById("gameSubmit")
-        .addEventListener("click", function (e) {
-          e.preventDefault();
-          const answer = document.querySelector(
-            'input[name="gameAnswer"]:checked'
-          )?.value;
-          if (!answer) {
-            document.getElementById("gameResult").textContent =
-              "Please select an option!";
-            document.getElementById("gameResult").style.color = "#ff0000";
-            return;
-          }
-          const correct = this.dataset.correct;
-          const feedback = JSON.parse(this.dataset.feedback);
-          const result = document.getElementById("gameResult");
-          result.textContent = feedback[answer];
-          result.style.color =
-            answer === correct
-              ? "#00ff00"
-              : answer === "A" || answer === "B"
-              ? "#ffff00"
-              : "#ff0000";
-        });
-
-      // Event Countdown Timer
-      const eventDate = new Date("March 15, 2025 10:00:00").getTime();
-      function updateCountdown() {
-        const now = new Date().getTime();
-        const distance = eventDate - now;
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-          (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-        );
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        document.getElementById(
-          "countdownTimer"
-        ).textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-        if (distance < 0) {
-          document.getElementById("countdownTimer").textContent =
-            "Event has started!";
-        }
-      }
-      setInterval(updateCountdown, 1000);
-
-      // Poll Logic
       let votes = { Phishing: 0, CTF: 0, SecureCoding: 0 };
       document
         .getElementById("pollForm")
@@ -1984,22 +1696,13 @@
           else if (option === "CTF") votes.CTF++;
           else if (option === "Secure Coding") votes.SecureCoding++;
           const totalVotes = votes.Phishing + votes.CTF + votes.SecureCoding;
-          const phishingPercent = totalVotes
-            ? (votes.Phishing / totalVotes) * 100
-            : 0;
-          const ctfPercent = totalVotes ? (votes.CTF / totalVotes) * 100 : 0;
-          const secureCodingPercent = totalVotes
-            ? (votes.SecureCoding / totalVotes) * 100
-            : 0;
           document.getElementById(
             "pollResult"
           ).textContent = `Thank you for voting! Total votes: ${totalVotes}`;
           document.getElementById("pollResult").style.color = "#00ff00";
           this.reset();
         });
-
-      // Event Registration Logic
-      [1, 2, 3].forEach((id) => {
+      [1, 2, 3, 4].forEach((id) => {
         document
           .getElementById(`eventForm${id}`)
           .addEventListener("submit", function (e) {
@@ -2014,8 +1717,6 @@
             this.reset();
           });
       });
-
-      // Membership Form Logic
       let currentStep = 1;
       function nextStep(step) {
         document.getElementById(`step${step}`).style.display = "none";
@@ -2053,7 +1754,7 @@
           const email = document.getElementById("email").value;
           document.getElementById(
             "formMessage"
-          ).textContent = `Welcome, ${name}! You are now enrolled. Check ${email} for next steps.`;
+          ).textContent = `Thank you, ${name}! Your sponsorship application has been received. Check ${email} for next steps.`;
           document.getElementById("formMessage").style.color = "#00ff00";
           this.reset();
           currentStep = 1;
@@ -2063,8 +1764,6 @@
           document.getElementById("progressBar").style.width = "33%";
           document.getElementById("progressBar").textContent = "Step 1/3";
         });
-
-      // Volunteer Form Logic
       document
         .getElementById("volunteerForm")
         .addEventListener("submit", function (e) {
@@ -2078,8 +1777,6 @@
           document.getElementById("volunteerMessage").style.color = "#00ff00";
           this.reset();
         });
-
-      // Feedback Form Logic
       document
         .getElementById("feedbackForm")
         .addEventListener("submit", function (e) {
@@ -2092,8 +1789,6 @@
           document.getElementById("feedbackMessage").style.color = "#00ff00";
           this.reset();
         });
-
-      // Scroll-to-Top Button Logic
       const scrollToTopBtn = document.getElementById("scrollToTopBtn");
       window.addEventListener("scroll", function () {
         if (window.scrollY > 300) {
