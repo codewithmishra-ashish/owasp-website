@@ -1,0 +1,1925 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OWASP MANIT Chapter | Secure the Breach</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Roboto Mono", monospace;
+        background-color: #0a0e14;
+        color: #00ff00;
+        line-height: 1.6;
+        overflow-x: hidden;
+        position: relative;
+        margin: 0;
+      }
+      .matrix-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.1;
+      }
+      .matrix-bg canvas {
+        width: 100%;
+        height: 100%;
+      }
+      .navbar {
+        background-color: #161b22;
+        border-bottom: 2px solid #00ff00;
+        padding: 10px 0; /* Reduced padding to decrease height */
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        transition: background-color 0.3s ease;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .navbar-brand {
+        font-size: 1.5rem; /* Slightly smaller font size for navbar brand */
+        font-weight: 700;
+        color: #00ff00 !important;
+        text-shadow: 0 0 5px #00ff00;
+        transition: color 0.3s;
+      }
+      .navbar-brand:hover {
+        color: #00cc00 !important;
+      }
+      .nav-link {
+        color: #00ff00 !important;
+        margin: 0 15px; /* Reduced margin for smaller navbar */
+        text-transform: uppercase;
+        font-size: 1rem; /* Slightly smaller font size */
+        position: relative;
+        transition: all 0.3s ease;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background: #00ff00;
+        bottom: -5px;
+        left: 0;
+        transition: width 0.3s;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      .nav-link:hover {
+        color: #00cc00 !important;
+        text-shadow: 0 0 8px #00ff00;
+      }
+      .hero {
+        background: url("https://images.unsplash.com/photo-1558499932-9609acb6f161?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80")
+          no-repeat center;
+        background-size: cover;
+        color: #00ff00;
+        padding: 200px 0;
+        text-align: center;
+        position: relative;
+        border-bottom: 2px solid #00ff00;
+        margin-bottom: 60px;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+      }
+      .hero h1,
+      .hero p,
+      .hero .btn {
+        position: relative;
+        z-index: 1;
+      }
+      .hero h1 {
+        font-size: 3.5rem;
+        text-shadow: 0 0 10px #00ff00;
+        animation: glitch 1s linear infinite;
+      }
+      .hero .social-links a {
+        color: #00ff00;
+        font-size: 1.5rem;
+        text-decoration: none;
+        transition: color 0.3s, transform 0.3s;
+      }
+      .hero .social-links a:hover {
+        color: #00f7ff;
+        transform: scale(1.2);
+      }
+      .section-title {
+        text-align: center;
+        margin: 70px 0 50px;
+        font-size: 2.5rem;
+        color: #00ff00;
+        text-shadow: 0 0 8px #00ff00;
+        position: relative;
+      }
+      .section-title::before {
+        content: "[#] ";
+        color: #00ff00;
+      }
+      .card {
+        background-color: #161b22;
+        border: 1px solid #00ff00;
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+        border-radius: 5px;
+        padding: 15px;
+      }
+      .card-img-top {
+        height: 250px;
+        object-fit: cover;
+        border-bottom: 1px solid #00ff00;
+        transition: opacity 0.3s;
+        border-radius: 5px;
+      }
+      .card-body {
+        padding: 20px;
+        background-color: #1a222c;
+        color: #00ff00;
+        text-shadow: 0 0 2px #00ff00;
+      }
+      .team-card .card-img-top {
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 20px auto;
+        width: 150px;
+      }
+      .team-card .card-body {
+        padding: 15px;
+        text-align: center;
+      }
+      .team-card h5 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: #00ffcc;
+      }
+      .team-card p {
+        font-size: 1rem;
+        line-height: 1.4;
+        color: #00ff00;
+      }
+      .btn-primary {
+        background-color: transparent;
+        border: 2px solid #00ff00;
+        color: #00ff00;
+        text-transform: uppercase;
+        padding: 10px 20px;
+        font-weight: 700;
+        transition: all 0.3s ease;
+        margin: 5px;
+      }
+      .btn-primary:hover {
+        background-color: #00ff00;
+        color: #0d1117;
+        box-shadow: 0 0 15px #00ff00;
+        transform: scale(1.05);
+      }
+      .btn-refresh {
+        background-color: #ff0000;
+        border: 2px solid #ff0000;
+        color: #ffffff;
+        padding: 10px 20px;
+        margin: 5px;
+        transition: all 0.3s ease;
+      }
+      .btn-refresh:hover {
+        background-color: #cc0000;
+        border-color: #cc0000;
+        color: #ffffff;
+        transform: scale(1.05);
+      }
+      .threat-ticker {
+        background-color: #161b22;
+        color: #ff0000;
+        padding: 10px 0;
+        font-size: 1rem;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 1px solid #ff0000;
+        margin-bottom: 10px; /* Reduced gap between threat ticker and navbar */
+      }
+      .threat-ticker span {
+        display: inline-block;
+        animation: ticker 20s linear infinite;
+      }
+      .modal-content {
+        background-color: #161b22;
+        border: 2px solid #00ff00;
+        color: #00ff00;
+      }
+      .modal-header,
+      .modal-footer {
+        border-bottom: 1px solid #00ff00;
+        border-top: none;
+      }
+      .form-control {
+        background-color: #1a222c;
+        border: 1px solid #00ff00;
+        color: #00ff00;
+      }
+      .swiper {
+        width: 100%;
+        padding: 20px 0;
+        background-color: #1a222c;
+        border: 1px solid #00ff00;
+        border-radius: 5px;
+        margin-top: 40px;
+      }
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #1a222c;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+      .poll-container {
+        background-color: #1a222c;
+        padding: 20px;
+        border: 1px solid #00ff00;
+        border-radius: 5px;
+        margin-top: 40px;
+      }
+      .poll-option {
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+      }
+      .progress {
+        height: 30px;
+        background-color: #161b22;
+        border: 1px solid #00ff00;
+        margin-top: 5px;
+      }
+      .progress-bar {
+        background-color: #00ff00;
+        color: #0d1117;
+      }
+      .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #00ff00;
+        color: #0d1117;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+      .scroll-to-top:hover {
+        background-color: #00cc00;
+        transform: scale(1.1);
+      }
+      section {
+        padding: 60px 0;
+        border-bottom: 1px solid #00ff00;
+      }
+      .section-divider {
+        border: 0;
+        height: 2px;
+        background: #00ff00;
+        margin: 60px 0;
+        width: 100%;
+      }
+      footer {
+        background-color: #161b22;
+        color: #00ff00;
+        padding: 40px 5px;
+        text-align: center;
+        border-top: 2px solid #00ff00;
+        font-size: 1rem;
+        max-height: 1rem;
+      }
+      /* Social Links Bar on the Right */
+      .social-links {
+        position: fixed;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 1000;
+      }
+      .social-links a {
+        color: #00ff00;
+        font-size: 1.5rem;
+        transition: all 0.3s ease;
+      }
+      .social-links a:hover {
+        color: #00cc00;
+        transform: scale(1.2);
+        text-shadow: 0 0 8px #00ff00;
+      }
+      @keyframes glitch {
+        2%,
+        64% {
+          transform: translate(2px, 0) skew(0deg);
+        }
+        4%,
+        60% {
+          transform: translate(-2px, 0) skew(0deg);
+        }
+        62% {
+          transform: translate(0, 0) skew(5deg);
+        }
+      }
+      @keyframes ticker {
+        0% {
+          transform: translateX(100%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+      @media (max-width: 768px) {
+        .hero {
+          padding: 150px 0;
+        }
+        .hero h1 {
+          font-size: 2.5rem;
+        }
+        .nav-link {
+          margin: 10px 0; /* Adjusted for mobile */
+        }
+        .team-card .card-img-top {
+          height: 120px;
+          width: 120px;
+        }
+        .team-card h5 {
+          font-size: 1rem;
+        }
+        .team-card p {
+          font-size: 0.9rem;
+        }
+        .swiper-slide img {
+          height: 100px;
+        }
+        .scroll-to-top {
+          width: 40px;
+          height: 40px;
+          font-size: 1.2rem;
+        }
+        .section-divider {
+          margin: 40px 0;
+        }
+        .card {
+          margin-bottom: 20px;
+        }
+        .poll-option {
+          margin: 10px 0;
+        }
+        .social-links {
+          right: 5px;
+          gap: 10px;
+        }
+        .social-links a {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Matrix Background -->
+    <div class="matrix-bg">
+      <canvas id="matrix"></canvas>
+    </div>
+
+    <!-- Threat Ticker -->
+    <div class="threat-ticker">
+      <span
+        >[ALERT] Latest Cybersecurity Threat: New Ransomware Variant Targeting
+        Educational Institutions - Stay Vigilant! &nbsp;&nbsp;</span
+      >
+    </div>
+
+    <!-- Navbar -->
+    <nav
+      class="navbar navbar-expand-lg navbar-dark"
+      data-aos="fade-down"
+      data-aos-duration="800"
+    >
+      <div class="container">
+        <a class="navbar-brand" href="#">OWASP MANIT</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#mission">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#events">Events</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#news">News</a></li>
+            <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#volunteer">Volunteer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#membership">Membership</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <h1 data-aos="fade-in" data-aos-duration="1000">Secure the Breach</h1>
+        <p data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
+          OWASP Maulana Azad National Institute of Technology Chapter - Bhopal
+        </p>
+        <a
+          href="#events"
+          class="btn btn-primary btn-lg"
+          data-aos="fade-up"
+          data-aos-delay="600"
+          data-aos-duration="800"
+          >Join the Mission</a
+        >
+        <div class="social-links">
+          <a href="https://www.instagram.com/owasp_nitb" target="_blank"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="https://www.linkedin.com/in/owaspnitb" target="_blank"
+            ><i class="fab fa-linkedin-in"></i
+          ></a>
+          <a href="https://twitter.com/owasp_nitb" target="_blank"
+            ><i class="fab fa-twitter"></i
+          ></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission Statement -->
+    <section id="mission" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Mission Statement
+      </h2>
+      <div class="row">
+        <div
+          class="col-md-12 text-center"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <p>
+            At OWASP MANIT, we are committed to empowering students with the
+            knowledge and skills to combat cyber threats. Our mission is to
+            foster a culture of cybersecurity awareness, promote secure coding
+            practices, and build a resilient community of future cybersecurity
+            leaders.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Identity
+      </h2>
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+          <p>
+            Welcome to the OWASP Chapter of MANIT, Bhopal! We are a student-led
+            society dedicated to improving software and cybersecurity awareness
+            among our peers.
+          </p>
+        </div>
+        <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
+          <p>
+            Through workshops, seminars, and collaborative projects, we aim to
+            educate and empower the MANIT community, creating a safer digital
+            environment for all.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Game Section -->
+    <section id="game" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Spot the Vulnerability
+      </h2>
+      <div class="row">
+        <div
+          class="col-md-8 offset-md-2"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <div class="card">
+            <div class="card-body text-center">
+              <h5 class="card-title">Challenge: Find the Security Issue</h5>
+              <p id="challengeText" class="mt-3"></p>
+              <pre id="challengeCode" class="mb-3"></pre>
+              <div id="challengeOptions" class="mb-3"></div>
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" id="gameSubmit">
+                  SUBMIT
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-refresh ms-3"
+                  onclick="refreshChallenge()"
+                >
+                  Refresh Challenge
+                </button>
+              </div>
+              <p id="gameResult" class="mt-3"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Operations
+      </h2>
+
+      <!-- Upcoming Events -->
+      <div class="row mb-5 d-flex flex-wrap justify-content-center gap-3">
+        <h4 class="text-center mb-4" data-aos="fade-in" data-aos-duration="800">
+          Upcoming Events
+        </h4>
+        <div
+          class="col-12 col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="100"
+        >
+          <div class="card">
+            <img
+              src="https://images.unsplash.com/photo-1558499932-9609acb6f161?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Workshop"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Cybersecurity Basics Workshop</h5>
+              <p class="card-text">
+                March 15, 2025 - Kickstart your cybersecurity journey.
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#eventModal1"
+              >
+                REGISTER
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="200"
+        >
+          <div class="card">
+            <img
+              src="https://images.unsplash.com/photo-1630091160998-6e524e4eabf8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Seminar"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Advanced Threats Seminar</h5>
+              <p class="card-text">
+                March 20, 2025 - Explore cutting-edge attack vectors.
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#eventModal2"
+              >
+                REGISTER
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="300"
+        >
+          <div class="card">
+            <img
+              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="CTF"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Capture The Flag (CTF)</h5>
+              <p class="card-text">
+                March 25, 2025 - Test your skills in a real-world scenario.
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#eventModal3"
+              >
+                REGISTER
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Event Calendar -->
+      <div class="section-divider"></div>
+      <div class="row">
+        <h4
+          class="text-center mb-4 mt-5"
+          data-aos="fade-in"
+          data-aos-duration="800"
+        >
+          Event Calendar
+        </h4>
+        <div class="col-md-12" data-aos="fade-up" data-aos-duration="1000">
+          <ul class="list-group">
+            <li class="list-group-item bg-dark text-white">
+              March 15, 2025 - Cybersecurity Basics Workshop
+            </li>
+            <li class="list-group-item bg-dark text-white">
+              March 20, 2025 - Advanced Threats Seminar
+            </li>
+            <li class="list-group-item bg-dark text-white">
+              March 25, 2025 - Capture The Flag (CTF)
+            </li>
+            <li class="list-group-item bg-dark text-white">
+              April 10, 2025 - Secure Coding Bootcamp
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cybersecurity News Section -->
+    <section id="news" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Cyber Threat Intel
+      </h2>
+      <div class="row mb-5 d-flex flex-wrap justify-content-center gap-3">
+        <div
+          class="col-12 col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="100"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Ransomware Surge in 2025</h5>
+              <p class="card-text">
+                March 07, 2025 - A new ransomware variant is targeting
+                educational institutions. Learn how to protect your systems.
+              </p>
+              <a
+                href="https://www.cybersecuritydive.com/news/ransomware-education-sector/710025/"
+                target="_blank"
+                class="btn btn-primary"
+                >READ MORE</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="200"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Phishing Attacks on the Rise</h5>
+              <p class="card-text">
+                March 05, 2025 - Phishing campaigns have increased by 30% this
+                year. Stay safe with these tips.
+              </p>
+              <a
+                href="https://www.cisa.gov/news-events/cybersecurity-advisories"
+                target="_blank"
+                class="btn btn-primary"
+                >READ MORE</a
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="300"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Zero-Day Exploits in 2025</h5>
+              <p class="card-text">
+                March 03, 2025 - New zero-day vulnerabilities found in popular
+                software. Patch your systems now.
+              </p>
+              <a
+                href="https://www.cve.mitre.org/"
+                target="_blank"
+                class="btn btn-primary"
+                >READ MORE</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="section-divider"></div>
+
+      <!-- Community Poll -->
+      <div class="row">
+        <div
+          class="col-md-6 offset-md-3"
+          data-aos="fade-up"
+          data-aos-duration="1000"
+        >
+          <div class="poll-container">
+            <h5 class="mb-3">What cybersecurity topic interests you most?</h5>
+            <form id="pollForm">
+              <div class="poll-option">
+                <input
+                  type="radio"
+                  name="pollOption"
+                  id="option1"
+                  value="Phishing"
+                />
+                <label for="option1" class="ms-2">Phishing Prevention</label>
+              </div>
+              <div class="poll-option">
+                <input
+                  type="radio"
+                  name="pollOption"
+                  id="option2"
+                  value="CTF"
+                />
+                <label for="option2" class="ms-2">Capture The Flag (CTF)</label>
+              </div>
+              <div class="poll-option">
+                <input
+                  type="radio"
+                  name="pollOption"
+                  id="option3"
+                  value="Secure Coding"
+                />
+                <label for="option3" class="ms-2"
+                  >Secure Coding Practices</label
+                >
+              </div>
+              <button type="submit" class="btn btn-primary mt-3">VOTE</button>
+            </form>
+            <p id="pollResult" class="mt-3"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Arsenal
+      </h2>
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+          <h4>Cybersecurity Tools</h4>
+          <ul>
+            <li>
+              <a href="https://owasp.org/www-project-zap/" target="_blank"
+                >OWASP ZAP</a
+              >
+              - Automated penetration testing
+            </li>
+            <li>
+              <a
+                href="https://owasp.org/www-project-juice-shop/"
+                target="_blank"
+                >OWASP Juice Shop</a
+              >
+              - Vulnerable app for training
+            </li>
+            <li>
+              <a
+                href="https://owasp.org/www-community/OWASP_Top_Ten"
+                target="_blank"
+                >OWASP Top 10</a
+              >
+              - Critical security risks
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
+          <h4>MANIT Resources</h4>
+          <ul>
+            <li><a href="#">Cybersecurity Basics Guide (PDF)</a></li>
+            <li><a href="#">CTF Starter Pack (PDF)</a></li>
+            <li><a href="#">Secure Coding Checklist (PDF)</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section with Command Unit -->
+    <section id="team" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Command Unit
+      </h2>
+
+      <!-- Chapter Leaders -->
+      <div class="row mb-6 d-flex justify-content-center">
+        <h4 class="text-center mb-4" data-aos="fade-in" data-aos-duration="800">
+          Chapter Leaders
+        </h4>
+        <div
+          class="col-12 col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="100"
+        >
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Deepak Singh Tomar"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Deepak Singh Tomar</h5>
+              <p class="card-text">
+                Founder & Chapter Leader<br />Strategic Director
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="200"
+        >
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1534528744314-0a5c9ee6c9a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Durgesh Shah"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Durgesh Shah</h5>
+              <p class="card-text">Chapter Leader<br />Event Coordinator</p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-12 col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="300"
+        >
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Gautam Pratap"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Gautam Pratap</h5>
+              <p class="card-text">Chapter Leader<br />Technical Lead</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Members Spotlight -->
+      <div class="section-divider"></div>
+      <div class="row">
+        <h4
+          class="text-center mb-4 mt-5"
+          data-aos="fade-in"
+          data-aos-duration="800"
+        >
+          Core Members Spotlight
+        </h4>
+        <div class="col-md-12">
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="card team-card">
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                    class="card-img-top"
+                    alt="Sanjita"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Sanjita</h5>
+                    <p class="card-text">Technical Executive</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card team-card">
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                    class="card-img-top"
+                    alt="Khushboo Gond"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Khushboo Gond</h5>
+                    <p class="card-text">Technical Executive</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card team-card">
+                  <img
+                    src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                    class="card-img-top"
+                    alt="Raghav Verma"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Ashish Mishra</h5>
+                    <p class="card-text">Web Developer</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card team-card">
+                  <img
+                    src="https://images.unsplash.com/photo-1534528744314-0a5c9ee6c9a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                    class="card-img-top"
+                    alt="Pranjali Tiwari"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Pranjali Tiwari</h5>
+                    <p class="card-text">Graphic Designer</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Stories Section -->
+    <section id="stories" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Community Stories
+      </h2>
+      <div class="row">
+        <div
+          class="col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="100"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Sanjana's Journey</h5>
+              <p class="card-text">
+                "Joining OWASP MANIT helped me transition from a beginner to
+                leading a CTF team. The workshops were a game-changer!”
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="200"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Raghav's Success</h5>
+              <p class="card-text">
+                "Developing secure websites through OWASP opened doors to
+                internships in cybersecurity firms.”
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="300"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Kavya's Impact</h5>
+              <p class="card-text">
+                "Organizing awareness campaigns taught me leadership and made
+                our campus safer.”
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Volunteer Opportunities Section -->
+    <section id="volunteer" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Volunteer Opportunities
+      </h2>
+      <div class="row">
+        <div
+          class="col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="100"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Event Organizer</h5>
+              <p class="card-text">
+                Help plan and execute workshops and CTFs. No prior experience
+                needed!
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#volunteerModal"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="200"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Content Creator</h5>
+              <p class="card-text">
+                Write blogs or create social media content to spread
+                cybersecurity awareness.
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#volunteerModal"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="300"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Technical Mentor</h5>
+              <p class="card-text">
+                Guide beginners in coding and security practices during events.
+              </p>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#volunteerModal"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Membership Section with Progress Tracker -->
+    <section id="membership" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Operative Enrollment
+      </h2>
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+          <h4>Join the Community</h4>
+          <p>
+            Be part of a vibrant society dedicated to cybersecurity! We organize
+            CTFs, workshops, and more to enhance your skills.
+          </p>
+          <h5>Why Join Us?</h5>
+          <ul>
+            <li>
+              Learn practical cybersecurity skills through hands-on workshops.
+            </li>
+            <li>
+              Network with industry experts and peers passionate about security.
+            </li>
+            <li>
+              Access exclusive resources and certifications (e.g., OWASP
+              training).
+            </li>
+            <li>Contribute to a safer digital future for MANIT and beyond.</li>
+          </ul>
+        </div>
+        <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
+          <div class="progress mb-3" style="height: 30px">
+            <div
+              id="progressBar"
+              class="progress-bar"
+              role="progressbar"
+              style="width: 33%"
+              aria-valuenow="33"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              Step 1/3
+            </div>
+          </div>
+          <form id="membershipForm">
+            <div id="step1">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Operative Name"
+                  required
+                />
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="nextStep(1)"
+              >
+                Next
+              </button>
+            </div>
+            <div id="step2" style="display: none">
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary"
+                onclick="nextStep(2)"
+              >
+                Next
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="prevStep(2)"
+              >
+                Back
+              </button>
+            </div>
+            <div id="step3" style="display: none">
+              <p>Please confirm your details:</p>
+              <p><strong>Name:</strong> <span id="confirmName"></span></p>
+              <p><strong>Email:</strong> <span id="confirmEmail"></span></p>
+              <button type="submit" class="btn btn-primary">
+                Confirm Enrollment
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onclick="prevStep(3)"
+              >
+                Back
+              </button>
+            </div>
+          </form>
+          <p id="formMessage" class="mt-2"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Community Impact Section -->
+    <section id="impact" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Community Impact
+      </h2>
+      <div class="row">
+        <div
+          class="col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="100"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Workshops Conducted</h5>
+              <p class="card-text">
+                Hosted 10+ workshops in 2024, educating over 500 students on
+                secure coding and threat mitigation.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="200"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Awareness Campaigns</h5>
+              <p class="card-text">
+                Organized 3 campus-wide campaigns on phishing and password
+                security, reaching 1000+ students.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="col-md-4"
+          data-aos="fade-up"
+          data-aos-duration="800"
+          data-aos-delay="300"
+        >
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Collaborations</h5>
+              <p class="card-text">
+                Partnered with MANIT’s IT department to secure campus servers,
+                reducing vulnerabilities by 40%.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container">
+      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
+        Secure Comms
+      </h2>
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+          <p>
+            Email:
+            <a href="mailto:owaspmanit@manit.ac.in">owaspmanit@manit.ac.in</a>
+          </p>
+          <p>
+            Reach out to our chapter leaders—Deepak, Durgesh, or Gautam—for more
+            information.
+          </p>
+        </div>
+        <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
+          <form id="feedbackForm">
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="feedbackName"
+                placeholder="Your Codename"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <textarea
+                class="form-control"
+                id="feedbackMessage"
+                rows="3"
+                placeholder="Your Feedback"
+                required
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Feedback</button>
+          </form>
+          <p id="feedbackMessage" class="mt-2"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modals -->
+    <!-- Event Modals -->
+    <div
+      class="modal fade"
+      id="eventModal1"
+      tabindex="-1"
+      aria-labelledby="eventModalLabel1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eventModalLabel1">
+              Register for Cybersecurity Basics Workshop
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="eventForm1">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="eventName1"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="eventEmail1"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <p id="eventMessage1" class="mt-2"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="eventModal2"
+      tabindex="-1"
+      aria-labelledby="eventModalLabel2"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eventModalLabel2">
+              Register for Advanced Threats Seminar
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="eventForm2">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="eventName2"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="eventEmail2"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <p id="eventMessage2" class="mt-2"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal fade"
+      id="eventModal3"
+      tabindex="-1"
+      aria-labelledby="eventModalLabel3"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="eventModalLabel3">
+              Register for Capture The Flag (CTF)
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="eventForm3">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="eventName3"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="eventEmail3"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <p id="eventMessage3" class="mt-2"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Volunteer Modal -->
+    <div
+      class="modal fade"
+      id="volunteerModal"
+      tabindex="-1"
+      aria-labelledby="volunteerModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="volunteerModalLabel">
+              Apply for Volunteer Role
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="volunteerForm">
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="volunteerName"
+                  placeholder="Your Name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="volunteerEmail"
+                  placeholder="Your Email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <select class="form-control" id="volunteerRole" required>
+                  <option value="">Select Role</option>
+                  <option value="event">Event Organizer</option>
+                  <option value="content">Content Creator</option>
+                  <option value="mentor">Technical Mentor</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Apply</button>
+            </form>
+            <p id="volunteerMessage" class="mt-2"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTopBtn">↑</button>
+
+    <!-- Footer -->
+    <footer data-aos="fade-up" data-aos-duration="800">
+      <p>© 2025 OWASP MANIT Chapter | Powered by the OWASP Foundation</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      AOS.init({ once: true, offset: 100 });
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document
+            .querySelector(this.getAttribute("href"))
+            .scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      // Matrix Background Animation
+      const canvas = document.getElementById("matrix");
+      const ctx = canvas.getContext("2d");
+      canvas.height = window.innerHeight;
+      canvas.width = window.innerWidth;
+      const chars =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
+      const fontSize = 14;
+      const columns = canvas.width / fontSize;
+      const drops = [];
+      for (let x = 0; x < columns; x++) {
+        drops[x] = 1;
+      }
+      function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "#00ff00";
+        ctx.font = fontSize + "px monospace";
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i]++;
+        }
+      }
+      setInterval(draw, 33);
+
+      // Swiper Initialization
+      const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        loop: true,
+        pagination: { el: ".swiper-pagination", clickable: true },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+          768: { slidesPerView: 2 },
+          992: { slidesPerView: 3 },
+        },
+      });
+
+      // Challenges Data
+      const challenges = [
+        {
+          text: "Below is a code snippet. Can you spot the vulnerability?",
+          code: `<form action="/login" method="POST">
+    <input type="text" name="username">
+    <input type="text" name="password">
+    <input type="submit" value="Login">
+</form>`,
+          options: [
+            {
+              value: "A",
+              label: 'A) Password field should be type="password"',
+            },
+            { value: "B", label: "B) Form lacks CSRF token" },
+            { value: "C", label: "C) Both A and B" },
+          ],
+          correct: "C",
+          feedback: {
+            C: 'Correct! The password field should be type="password", and the form lacks a CSRF token.',
+            A: 'Partially correct! The password field should indeed be type="password", but the form also lacks a CSRF token.',
+            B: 'Partially correct! The form lacks a CSRF token, but the password field should also be type="password".',
+          },
+        },
+        {
+          text: "Identify the issue in this SQL query:",
+          code: `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`,
+          options: [
+            { value: "A", label: "A) SQL Injection vulnerability" },
+            { value: "B", label: "B) Password is not hashed" },
+            { value: "C", label: "C) Both A and B" },
+          ],
+          correct: "C",
+          feedback: {
+            C: "Correct! The query is vulnerable to SQL Injection, and the password should be hashed.",
+            A: "Partially correct! The query is indeed vulnerable to SQL Injection, but the password should also be hashed.",
+            B: "Partially correct! The password should be hashed, but the query is also vulnerable to SQL Injection.",
+          },
+        },
+        {
+          text: "What's wrong with this email link?",
+          code: `<a href="mailto:user@example.com?subject=Hello&body=Click here: http://malicious-site.com">Contact Us</a>`,
+          options: [
+            { value: "A", label: "A) Potential phishing risk" },
+            { value: "B", label: "B) Missing email validation" },
+            { value: "C", label: "C) No issues" },
+          ],
+          correct: "A",
+          feedback: {
+            A: "Correct! The link in the email body could lead to a phishing site.",
+            B: "Incorrect! Email validation isn't the primary issue here; the link poses a phishing risk.",
+            C: "Incorrect! The link in the email body could lead to a phishing site.",
+          },
+        },
+      ];
+
+      // Load Challenge
+      function loadChallenge(index) {
+        const challenge = challenges[index];
+        document.getElementById("challengeText").textContent = challenge.text;
+        document.getElementById(
+          "challengeCode"
+        ).innerHTML = `<code>${challenge.code}</code>`;
+        const optionsContainer = document.getElementById("challengeOptions");
+        optionsContainer.innerHTML = challenge.options
+          .map(
+            (option) => `
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="gameAnswer" id="gameAnswer${option.value}" value="${option.value}" required>
+                        <label class="form-check-label" for="gameAnswer${option.value}">${option.label}</label>
+                    </div>
+                `
+          )
+          .join("");
+        document.getElementById("gameResult").textContent = "";
+        document.getElementById("gameSubmit").dataset.correct =
+          challenge.correct;
+        document.getElementById("gameSubmit").dataset.feedback = JSON.stringify(
+          challenge.feedback
+        );
+      }
+
+      // Initial Challenge Load
+      let currentChallengeIndex = 0;
+      loadChallenge(currentChallengeIndex);
+
+      // Refresh Challenge
+      function refreshChallenge() {
+        currentChallengeIndex = (currentChallengeIndex + 1) % challenges.length;
+        loadChallenge(currentChallengeIndex);
+      }
+
+      // Game Logic
+      document
+        .getElementById("gameSubmit")
+        .addEventListener("click", function (e) {
+          e.preventDefault();
+          const answer = document.querySelector(
+            'input[name="gameAnswer"]:checked'
+          )?.value;
+          if (!answer) {
+            document.getElementById("gameResult").textContent =
+              "Please select an option!";
+            document.getElementById("gameResult").style.color = "#ff0000";
+            return;
+          }
+          const correct = this.dataset.correct;
+          const feedback = JSON.parse(this.dataset.feedback);
+          const result = document.getElementById("gameResult");
+          result.textContent = feedback[answer];
+          result.style.color =
+            answer === correct
+              ? "#00ff00"
+              : answer === "A" || answer === "B"
+              ? "#ffff00"
+              : "#ff0000";
+        });
+
+      // Poll Logic
+      let votes = { Phishing: 0, CTF: 0, SecureCoding: 0 };
+      document
+        .getElementById("pollForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const option = document.querySelector(
+            'input[name="pollOption"]:checked'
+          )?.value;
+          if (!option) {
+            document.getElementById("pollResult").textContent =
+              "Please select an option!";
+            document.getElementById("pollResult").style.color = "#ff0000";
+            return;
+          }
+          if (option === "Phishing") votes.Phishing++;
+          else if (option === "CTF") votes.CTF++;
+          else if (option === "Secure Coding") votes.SecureCoding++;
+          const totalVotes = votes.Phishing + votes.CTF + votes.SecureCoding;
+          const phishingPercent = totalVotes
+            ? (votes.Phishing / totalVotes) * 100
+            : 0;
+          const ctfPercent = totalVotes ? (votes.CTF / totalVotes) * 100 : 0;
+          const secureCodingPercent = totalVotes
+            ? (votes.SecureCoding / totalVotes) * 100
+            : 0;
+          document.getElementById(
+            "pollResult"
+          ).textContent = `Thank you for voting! Total votes: ${totalVotes}`;
+          document.getElementById("pollResult").style.color = "#00ff00";
+          this.reset();
+        });
+
+      // Event Registration Logic
+      [1, 2, 3].forEach((id) => {
+        document
+          .getElementById(`eventForm${id}`)
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            const name = document.getElementById(`eventName${id}`).value;
+            const email = document.getElementById(`eventEmail${id}`).value;
+            document.getElementById(
+              `eventMessage${id}`
+            ).textContent = `Thank you, ${name}! Registration for Event ${id} confirmed. Check ${email} for details.`;
+            document.getElementById(`eventMessage${id}`).style.color =
+              "#00ff00";
+            this.reset();
+          });
+      });
+
+      // Membership Form Logic
+      let currentStep = 1;
+      function nextStep(step) {
+        document.getElementById(`step${step}`).style.display = "none";
+        document.getElementById(`step${step + 1}`).style.display = "block";
+        currentStep++;
+        document.getElementById("progressBar").style.width = `${
+          currentStep * 33
+        }%`;
+        document.getElementById(
+          "progressBar"
+        ).textContent = `Step ${currentStep}/3`;
+        if (currentStep === 3) {
+          document.getElementById("confirmName").textContent =
+            document.getElementById("name").value;
+          document.getElementById("confirmEmail").textContent =
+            document.getElementById("email").value;
+        }
+      }
+      function prevStep(step) {
+        document.getElementById(`step${step}`).style.display = "none";
+        document.getElementById(`step${step - 1}`).style.display = "block";
+        currentStep--;
+        document.getElementById("progressBar").style.width = `${
+          currentStep * 33
+        }%`;
+        document.getElementById(
+          "progressBar"
+        ).textContent = `Step ${currentStep}/3`;
+      }
+      document
+        .getElementById("membershipForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          document.getElementById(
+            "formMessage"
+          ).textContent = `Welcome, ${name}! You are now enrolled. Check ${email} for next steps.`;
+          document.getElementById("formMessage").style.color = "#00ff00";
+          this.reset();
+          currentStep = 1;
+          document.getElementById("step1").style.display = "block";
+          document.getElementById("step2").style.display = "none";
+          document.getElementById("step3").style.display = "none";
+          document.getElementById("progressBar").style.width = "33%";
+          document.getElementById("progressBar").textContent = "Step 1/3";
+        });
+
+      // Volunteer Form Logic
+      document
+        .getElementById("volunteerForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("volunteerName").value;
+          const email = document.getElementById("volunteerEmail").value;
+          const role = document.getElementById("volunteerRole").value;
+          document.getElementById(
+            "volunteerMessage"
+          ).textContent = `Thank you, ${name}! Your application for ${role} role has been received. Check ${email} for updates.`;
+          document.getElementById("volunteerMessage").style.color = "#00ff00";
+          this.reset();
+        });
+
+      // Feedback Form Logic
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("feedbackName").value;
+          const message = document.getElementById("feedbackMessage").value;
+          document.getElementById(
+            "feedbackMessage"
+          ).textContent = `Thank you, ${name}! Your feedback "${message}" has been recorded.`;
+          document.getElementById("feedbackMessage").style.color = "#00ff00";
+          this.reset();
+        });
+
+      // Scroll-to-Top Button Logic
+      const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 300) {
+          scrollToTopBtn.style.display = "flex";
+        } else {
+          scrollToTopBtn.style.display = "none";
+        }
+      });
+      scrollToTopBtn.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
+  </body>
+</html>

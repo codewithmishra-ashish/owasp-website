@@ -9,39 +9,50 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <style>
       ::-webkit-scrollbar {
         width: 12px;
       }
       ::-webkit-scrollbar-track {
-        background: #252525;
+        background: #161b22;
         border-radius: 10px;
       }
       ::-webkit-scrollbar-thumb {
         background: #00ff00;
         border-radius: 10px;
-        border: 2px solid #252525;
+        border: 2px solid #161b22;
       }
       ::-webkit-scrollbar-thumb:hover {
         background: #00cc00;
       }
       body {
         font-family: "Roboto Mono", monospace;
-        background-color: #1a1a1a;
-        color: #ffffff;
+        background-color: #0a0e14;
+        color: #00ff00;
         line-height: 1.6;
         overflow-x: hidden;
         position: relative;
         margin: 0;
         height: 100vh;
+      }
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Poppins", sans-serif;
       }
       .matrix-bg {
         position: fixed;
@@ -51,19 +62,21 @@
         height: 100%;
         pointer-events: none;
         z-index: -1;
-        opacity: 0.05;
+        opacity: 0.1;
       }
       .matrix-bg canvas {
         width: 100%;
         height: 100%;
       }
       .navbar {
-        background-color: #252525;
-        padding: 15px 0;
+        background-color: #161b22;
+        border-bottom: 2px solid #00ff00;
+        padding: 20px 0;
         position: sticky;
         top: 0;
         z-index: 1000;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.1);
+        transition: background-color 0.3s ease;
       }
       .navbar-brand {
         font-size: 1.8rem;
@@ -73,11 +86,11 @@
         transition: color 0.3s;
       }
       .navbar-brand:hover {
-        color: #00cc00 !important;
+        color: #00f7ff !important;
       }
       .nav-link {
-        color: #ffffff !important;
-        margin: 0 20px;
+        color: #00ff00 !important;
+        margin: 0 25px;
         text-transform: uppercase;
         font-size: 1.1rem;
         position: relative;
@@ -88,7 +101,7 @@
         position: absolute;
         width: 0;
         height: 2px;
-        background: #00ff00;
+        background: #00f7ff;
         bottom: -5px;
         left: 0;
         transition: width 0.3s;
@@ -97,22 +110,21 @@
         width: 100%;
       }
       .nav-link:hover {
-        color: #00ff00 !important;
-        text-shadow: 0 0 8px #00ff00;
+        color: #00f7ff !important;
+        text-shadow: 0 0 8px #00f7ff;
       }
       .hero {
-        background: url("https://images.unsplash.com/photo-1630091160998-6e524e4eabf8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80")
+        background: url("https://images.unsplash.com/photo-1558499932-9609acb6f161?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80")
           no-repeat center;
         background-size: cover;
-        color: #ffffff;
-        padding: 150px 0;
-        text-align: center;
         position: relative;
         min-height: 100vh;
         display: flex;
         align-items: center;
+        padding: 200px 0;
+        text-align: center;
         border-bottom: 2px solid #00ff00;
-        margin-bottom: 80px;
+        margin-bottom: 0;
       }
       .hero::before {
         content: "";
@@ -121,106 +133,138 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 0;
       }
-      .hero h1,
-      .hero p,
-      .hero .btn {
+      .hero-content {
         position: relative;
         z-index: 1;
+        width: 100%;
       }
       .hero h1 {
-        font-size: 3.5rem;
+        font-size: 4rem;
+        color: #00ff00;
         text-shadow: 0 0 10px #00ff00;
         animation: glitch 1s linear infinite;
         margin-bottom: 20px;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+      .hero h2 {
+        font-size: 2rem;
+        color: #ffffff;
+        margin-bottom: 20px;
+        font-weight: 500;
       }
       .hero p {
+        font-size: 1.2rem;
+        color: #cccccc;
         margin-bottom: 30px;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
       }
-      .social-links {
+      .hero p.typing {
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 2px solid #00ff00;
+        animation: typing 4s steps(40, end), blink 0.75s step-end infinite;
+      }
+      .hero .btn-primary {
+        font-size: 1.2rem;
+        padding: 15px 30px;
+        animation: pulse 2s infinite;
+      }
+      .hero .social-links {
         position: absolute;
         right: 20px;
         top: 50%;
         transform: translateY(-50%);
         display: flex;
         flex-direction: column;
+        gap: 15px;
         z-index: 1;
       }
-      .social-links a {
+      .hero .social-links a {
         color: #00ff00;
-        font-size: 1.2rem;
-        margin: 15px 0;
+        font-size: 1.5rem;
         text-decoration: none;
         transition: color 0.3s, transform 0.3s;
       }
-      .social-links a:hover {
-        color: #00cc00;
+      .hero .social-links a:hover {
+        color: #00f7ff;
         transform: scale(1.2);
       }
       .section-title {
         text-align: center;
-        margin: 100px 0 60px;
+        margin: 70px 0 50px;
         font-size: 2.5rem;
         color: #00ff00;
         text-shadow: 0 0 8px #00ff00;
+        position: relative;
         text-transform: uppercase;
       }
+      .section-title::before {
+        content: "[#] ";
+        color: #00ff00;
+      }
+      .section-title::after {
+        content: "";
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px;
+        height: 3px;
+        background: linear-gradient(to right, #00ff00, #00f7ff);
+        animation: underline 2s infinite;
+      }
       .card {
-        background-color: #252525;
+        background-color: #161b22;
         border: 1px solid #00ff00;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s, box-shadow 0.3s;
-        margin-bottom: 40px;
-        position: relative;
-        perspective: 1000px;
-        min-height: 200px; /* Ensure cards have enough height */
+        box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+        border-radius: 5px;
       }
       .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 20px rgba(0, 255, 0, 0.2);
-      }
-      .card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transition: transform 0.6s;
-        transform-style: preserve-3d;
-      }
-      .card:hover .card-inner {
-        transform: rotateY(180deg);
-      }
-      .card-front,
-      .card-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-      }
-      .card-front {
-        background-color: #252525;
-      }
-      .card-back {
-        background-color: #1a222c;
-        color: #00ff00;
-        transform: rotateY(180deg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        text-align: center;
-        padding-top: 40px; /* Move text lower */
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
       }
       .card-body {
         padding: 25px;
-        color: #ffffff;
+        color: #00ff00;
+        flex-grow: 1;
+        text-shadow: 0 0 2px #00ff00;
       }
       .card-title {
         margin-bottom: 15px;
+        color: #00f7ff;
       }
       .card-text {
         margin-bottom: 20px;
+      }
+      .team-card .card-img-top {
+        height: 150px;
+        width: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin: 20px auto;
+        border: 2px solid #00ff00;
+      }
+      .team-card .card-body {
+        padding: 15px;
+        text-align: center;
+      }
+      .team-card h5 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: #00ffcc;
+      }
+      .team-card p {
+        font-size: 1rem;
+        line-height: 1.4;
+        color: #00ff00;
       }
       .btn-primary {
         background-color: transparent;
@@ -230,23 +274,24 @@
         font-weight: 700;
         text-transform: uppercase;
         transition: all 0.3s ease;
+        width: fit-content;
       }
       .btn-primary:hover {
-        background-color: #00ff00;
-        color: #1a1a1a;
-        box-shadow: 0 0 15px #00ff00;
+        background: linear-gradient(to right, #00ff00, #00f7ff);
+        color: #0a0e14;
+        box-shadow: 0 0 15px #00f7ff;
         transform: scale(1.05);
       }
       .threat-ticker {
-        background-color: #252525;
+        background-color: #161b22;
         color: #ff0000;
-        padding: 15px 0;
+        padding: 10px 0;
         font-size: 1rem;
         text-align: center;
         position: relative;
         overflow: hidden;
         border-bottom: 1px solid #ff0000;
-        margin-bottom: 60px;
+        margin-bottom: 0;
       }
       .threat-ticker span {
         display: inline-block;
@@ -254,12 +299,12 @@
       }
       .swiper {
         width: 100%;
-        padding: 30px 0;
+        padding: 20px 0;
         background-color: #1a222c;
         border: 1px solid #00ff00;
         border-radius: 5px;
-        margin-top: 60px;
-        margin-bottom: 80px;
+        margin-top: 40px;
+        margin-bottom: 40px;
       }
       .swiper-slide {
         text-align: center;
@@ -268,13 +313,56 @@
         justify-content: center;
         align-items: center;
       }
-      section {
-        padding: 80px 0;
+      .section-divider {
+        border: 0;
+        height: 2px;
+        background: #00ff00;
+        margin: 40px 0;
+        width: 100%;
+      }
+      .modal-content {
+        background-color: #161b22;
+        border: 2px solid #00ff00;
+        color: #00ff00;
+      }
+      .modal-header,
+      .modal-footer {
         border-bottom: 1px solid #00ff00;
+        border-top: none;
+      }
+      .form-control {
+        background-color: #1a222c;
+        border: 1px solid #00ff00;
+        color: #00ff00;
+      }
+      .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #00ff00;
+        color: #0a0e14;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+      .scroll-to-top:hover {
+        background-color: #00f7ff;
+        transform: scale(1.1);
+      }
+      section {
+        padding: 60px 0;
       }
       footer {
-        background-color: #252525;
-        color: #ffffff;
+        background-color: #161b22;
+        color: #00ff00;
         padding: 20px 0;
         text-align: center;
         border-top: 2px solid #00ff00;
@@ -301,40 +389,96 @@
           transform: translateX(-100%);
         }
       }
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+      @keyframes blink {
+        50% {
+          border-color: transparent;
+        }
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(0, 255, 0, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 20px rgba(0, 255, 0, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(0, 255, 0, 0);
+        }
+      }
+      @keyframes underline {
+        0% {
+          width: 50px;
+        }
+        50% {
+          width: 100px;
+        }
+        100% {
+          width: 50px;
+        }
+      }
       @media (max-width: 768px) {
         .hero {
-          padding: 100px 0;
+          padding: 150px 0;
           min-height: 80vh;
-          margin-bottom: 60px;
         }
         .hero h1 {
           font-size: 2.5rem;
         }
-        .nav-link {
-          margin: 10px 0;
+        .hero h2 {
+          font-size: 1.5rem;
         }
-        .swiper-slide {
-          width: 100%;
+        .hero p {
+          font-size: 1rem;
+        }
+        .nav-link {
+          margin: 15px 0;
+        }
+        .team-card .card-img-top {
+          height: 120px;
+          width: 120px;
+        }
+        .team-card h5 {
+          font-size: 1rem;
+        }
+        .team-card p {
+          font-size: 0.9rem;
         }
         .section-title {
-          margin: 80px 0 40px;
+          margin: 50px 0 30px;
         }
         .card {
-          margin-bottom: 30px;
+          margin-bottom: 20px;
           min-height: 250px;
         }
         section {
-          padding: 60px 0;
+          padding: 40px 0;
+        }
+        .section-divider {
+          margin: 20px 0;
         }
         footer {
           padding: 15px 0;
+          font-size: 0.8rem;
         }
         .social-links {
           right: 10px;
         }
         .social-links a {
-          font-size: 1rem;
-          margin: 10px 0;
+          font-size: 1.2rem;
+          gap: 10px;
+        }
+        .scroll-to-top {
+          width: 40px;
+          height: 40px;
+          font-size: 1.2rem;
         }
       }
     </style>
@@ -354,11 +498,7 @@
     </div>
 
     <!-- Navbar -->
-    <nav
-      class="navbar navbar-expand-lg navbar-dark"
-      data-aos="fade-down"
-      data-aos-duration="800"
-    >
+    <nav class="navbar navbar-expand-lg navbar-dark">
       <div class="container">
         <a class="navbar-brand" href="#">OWASP MANIT</a>
         <button
@@ -381,6 +521,10 @@
             <li class="nav-item">
               <a class="nav-link" href="#join">Join Us</a>
             </li>
+            <li class="nav-item"><a class="nav-link" href="#team">Team</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#leaders">Leaders</a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="#contact">Contact</a>
             </li>
@@ -389,184 +533,125 @@
       </div>
     </nav>
 
-    <!-- Hero Section with Social Links -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
-      <div class="container">
-        <h1 data-aos="fade-in" data-aos-duration="1000">Secure the Future</h1>
-        <p data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
-          OWASP Maulana Azad National Institute of Technology Chapter - Bhopal
+      <div class="hero-content">
+        <h1>OWASP MANIT</h1>
+        <h2>Cybersecurity Club</h2>
+        <p class="typing">
+          Join us to secure the future of technology. Protect, learn, and
+          innovate with OWASP MANIT.
         </p>
-        <a
-          href="#join"
-          class="btn btn-primary btn-lg"
-          data-aos="fade-up"
-          data-aos-delay="600"
-          data-aos-duration="800"
-          >Join Now</a
-        >
-      </div>
-      <div class="social-links" data-aos="fade-left" data-aos-duration="800">
-        <a href="https://www.instagram.com/owasp_nitb" target="_blank"
-          >Instagram</a
-        >
-        <a href="https://www.linkedin.com/in/owaspnitb" target="_blank"
-          >LinkedIn</a
-        >
-        <a href="https://twitter.com/owasp_nitb" target="_blank">X</a>
+        <a href="#join" class="btn btn-primary">Join the Fight</a>
+        <div class="social-links">
+          <a href="https://www.instagram.com/owasp_nitb" target="_blank"
+            ><i class="fab fa-instagram"></i
+          ></a>
+          <a href="https://www.linkedin.com/in/owaspnitb" target="_blank"
+            ><i class="fab fa-linkedin-in"></i
+          ></a>
+          <a href="https://twitter.com/owasp_nitb" target="_blank"
+            ><i class="fab fa-twitter"></i
+          ></a>
+        </div>
       </div>
     </section>
+    <div class="section-divider"></div>
 
     <!-- About Section -->
     <section id="about" class="container">
-      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
-        About Us
-      </h2>
+      <h2 class="section-title">About Us</h2>
       <div class="row">
-        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+        <div class="col-md-6">
           <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <p>
-                    Welcome to the OWASP Chapter of MANIT, Bhopal! We are
-                    excited to announce the launch of our new chapter dedicated
-                    to improving software and cybersecurity awareness among
-                    students.
-                  </p>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Building a secure digital community starts here!</p>
-              </div>
+            <div class="card-body">
+              <p>
+                Welcome to the OWASP Chapter of MANIT, Bhopal! We are excited to
+                announce the launch of our new chapter dedicated to improving
+                software and cybersecurity awareness among students.
+              </p>
+              <p><em>Building a secure digital community starts here!</em></p>
             </div>
           </div>
         </div>
-        <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
+        <div class="col-md-6">
           <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <p>
-                    At our chapter, we believe in starting with the basics of
-                    cybersecurity and gradually progressing to more advanced
-                    topics through workshops, seminars, and meetups.
-                  </p>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Join us to level up your security skills!</p>
-              </div>
+            <div class="card-body">
+              <p>
+                At our chapter, we believe in starting with the basics of
+                cybersecurity and gradually progressing to more advanced topics
+                through workshops, seminars, and meetups.
+              </p>
+              <p><em>Join us to level up your security skills!</em></p>
             </div>
           </div>
         </div>
       </div>
+      <div class="section-divider"></div>
     </section>
 
     <!-- Events Section -->
     <section id="events" class="container">
-      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
-        Events
-      </h2>
-      <div class="row">
-        <div
-          class="col-md-4"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-delay="100"
-        >
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <h5 class="card-title">Workshops</h5>
-                  <p class="card-text">
-                    Hands-on sessions to learn cybersecurity fundamentals and
-                    advanced techniques.
-                  </p>
-                  <a href="#join" class="btn btn-primary">Get Involved</a>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Master the basics and beyond!</p>
-              </div>
+      <h2 class="section-title">Events</h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Workshops</h5>
+              <p class="card-text">
+                Hands-on sessions to learn cybersecurity fundamentals and
+                advanced techniques.
+              </p>
+              <a href="#join" class="btn btn-primary mt-auto">Get Involved</a>
+              <p><em>Master the basics and beyond!</em></p>
             </div>
           </div>
         </div>
-        <div
-          class="col-md-4"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-delay="200"
-        >
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <h5 class="card-title">CTF Competitions</h5>
-                  <p class="card-text">
-                    Test your hacking skills in our Capture The Flag challenges.
-                  </p>
-                  <a href="#join" class="btn btn-primary">Get Involved</a>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Compete to capture the flag!</p>
-              </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">CTF Competitions</h5>
+              <p class="card-text">
+                Test your hacking skills in our Capture The Flag challenges.
+              </p>
+              <a href="#join" class="btn btn-primary mt-auto">Get Involved</a>
+              <p><em>Compete to capture the flag!</em></p>
             </div>
           </div>
         </div>
-        <div
-          class="col-md-4"
-          data-aos="fade-up"
-          data-aos-duration="800"
-          data-aos-delay="300"
-        >
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <h5 class="card-title">Seminars & Meetups</h5>
-                  <p class="card-text">
-                    Engage with experts and peers to explore cybersecurity
-                    topics.
-                  </p>
-                  <a href="#join" class="btn btn-primary">Get Involved</a>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Learn from the best in the field!</p>
-              </div>
+        <div class="col">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">Seminars & Meetups</h5>
+              <p class="card-text">
+                Engage with experts and peers to explore cybersecurity topics.
+              </p>
+              <a href="#join" class="btn btn-primary mt-auto">Get Involved</a>
+              <p><em>Learn from the best in the field!</em></p>
             </div>
           </div>
         </div>
       </div>
+      <div class="section-divider"></div>
     </section>
 
     <!-- Join Us Section -->
     <section id="join" class="container">
-      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
-        Join Us
-      </h2>
+      <h2 class="section-title">Join Us</h2>
       <div class="row">
-        <div class="col-md-6" data-aos="fade-right" data-aos-duration="1000">
+        <div class="col-md-6">
           <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <p>
-                    We are actively seeking volunteers to ensure the smooth
-                    conduct of our events. Contact our chapter leaders to
-                    contribute to our cybersecurity mission!
-                  </p>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>Together, let’s enhance cybersecurity at MANIT!</p>
-              </div>
+            <div class="card-body">
+              <p>
+                We are actively seeking volunteers to ensure the smooth conduct
+                of our events. Contact our chapter leaders to contribute to our
+                cybersecurity mission!
+              </p>
+              <p><em>Together, let’s enhance cybersecurity at MANIT!</em></p>
             </div>
           </div>
         </div>
-        <div class="col-md-6" data-aos="fade-left" data-aos-duration="1000">
+        <div class="col-md-6">
           <div class="card">
             <div class="card-body">
               <form id="joinForm">
@@ -588,7 +673,12 @@
                     required
                   />
                 </div>
-                <button type="submit" class="btn btn-primary">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#joinModal"
+                >
                   Contact Leaders
                 </button>
               </form>
@@ -598,7 +688,7 @@
         </div>
       </div>
       <!-- Volunteer Roles Swiper -->
-      <div class="swiper mySwiper" data-aos="fade-up" data-aos-duration="1000">
+      <div class="swiper mySwiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
             <div class="card">
@@ -631,57 +721,275 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-pagination"></div>
       </div>
+      <div class="section-divider"></div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="container">
-      <h2 class="section-title" data-aos="fade-in" data-aos-duration="800">
-        Contact
-      </h2>
+    <!-- Leaders Section -->
+    <section id="leaders" class="container">
+      <h2 class="section-title">Leaders</h2>
       <div class="row">
-        <div
-          class="col-md-12 text-center"
-          data-aos="fade-up"
-          data-aos-duration="1000"
-        >
-          <div class="card">
-            <div class="card-inner">
-              <div class="card-front">
-                <div class="card-body">
-                  <p>
-                    Email:
-                    <a href="mailto:owaspmanit@manit.ac.in"
-                      >owaspmanit@manit.ac.in</a
-                    >
-                  </p>
-                  <p>
-                    Connect with us on social media via the links on the right,
-                    or reach out to our chapter leaders directly!
-                  </p>
-                </div>
-              </div>
-              <div class="card-back">
-                <p>We value your support—join us today!</p>
-              </div>
+        <div class="col-md-4">
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Aarav Sharma"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Deepak Singh Tomar</h5>
+              <p class="card-text">
+                Founder & Chapter Leader<br />Strategic Director
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1534528744314-0a5c9ee6c9a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Neha Patel"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Durgesh Shah</h5>
+              <p class="card-text">Chapter Leader<br />Event Coordinator</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card team-card">
+            <img
+              src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+              class="card-img-top"
+              alt="Rohan Gupta"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Gautam Pratap</h5>
+              <p class="card-text">Chapter Leader<br />Technical Head</p>
             </div>
           </div>
         </div>
       </div>
+      <div class="section-divider"></div>
     </section>
 
-    <!-- Smaller Footer -->
-    <footer data-aos="fade-up" data-aos-duration="800">
+    <!-- Team Section -->
+    <section id="team" class="container">
+      <h2 class="section-title">Team</h2>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="card team-card">
+                  <img
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                    class="card-img-top"
+                    alt="Sanjita"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Sanjita</h5>
+                    <p class="card-text">Technical Executive</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card team-card">
+                  <img
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                    class="card-img-top"
+                    alt="Khushboo Gond"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Khushboo Gond</h5>
+                    <p class="card-text">Technical Executive</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card team-card">
+                  <img
+                    src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                    class="card-img-top"
+                    alt="Raghav Verma"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Ashish Mishra</h5>
+                    <p class="card-text">Web Developer</p>
+                  </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="card team-card">
+                  <img
+                    src="https://images.unsplash.com/photo-1534528744314-0a5c9ee6c9a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80"
+                    class="card-img-top"
+                    alt="Pranjali Tiwari"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">Pranjali Tiwari</h5>
+                    <p class="card-text">Graphic Designer</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </div>
+      <div class="section-divider"></div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="container">
+      <h2 class="section-title">Contact</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <p>
+                Email:
+                <a href="mailto:owaspmanit@manit.ac.in"
+                  >owaspmanit@manit.ac.in</a
+                >
+              </p>
+              <p>
+                Connect with us on social media via the links on the right, or
+                reach out to our chapter leaders directly!
+              </p>
+              <p><em>We value your support—join us today!</em></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <form id="feedbackForm">
+                <div class="mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="feedbackName"
+                    placeholder="Your Codename"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <textarea
+                    class="form-control"
+                    id="feedbackMessage"
+                    rows="3"
+                    placeholder="Your Feedback"
+                    required
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#feedbackModal"
+                >
+                  Send Feedback
+                </button>
+              </form>
+              <p id="feedbackMessage" class="mt-2"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- No section-divider here as it's the last section before the footer -->
+    </section>
+
+    <!-- Modals -->
+    <!-- Join Modal -->
+    <div
+      class="modal fade"
+      id="joinModal"
+      tabindex="-1"
+      aria-labelledby="joinModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="joinModalLabel">
+              Join Us Confirmation
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p id="joinModalMessage"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div
+      class="modal fade"
+      id="feedbackModal"
+      tabindex="-1"
+      aria-labelledby="feedbackModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="feedbackModalLabel">
+              Feedback Confirmation
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <p id="feedbackModalMessage"></p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-to-top" id="scrollToTopBtn">↑</button>
+
+    <!-- Footer -->
+    <footer>
       <p>© 2025 OWASP MANIT Chapter | Powered by the OWASP Foundation</p>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- AOS JS -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-      AOS.init({ once: true, offset: 100 });
       document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener("click", function (e) {
           e.preventDefault();
@@ -741,11 +1049,36 @@
           const name = document.getElementById("joinName").value;
           const email = document.getElementById("joinEmail").value;
           document.getElementById(
-            "joinMessage"
+            "joinModalMessage"
           ).textContent = `Thank you, ${name}! We'll contact you at ${email} soon.`;
-          document.getElementById("joinMessage").style.color = "#00ff00";
           this.reset();
         });
+
+      // Feedback Form Logic
+      document
+        .getElementById("feedbackForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const name = document.getElementById("feedbackName").value;
+          const message = document.getElementById("feedbackMessage").value;
+          document.getElementById(
+            "feedbackModalMessage"
+          ).textContent = `Thank you, ${name}! Your feedback "${message}" has been recorded.`;
+          this.reset();
+        });
+
+      // Scroll-to-Top Button Logic
+      const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 300) {
+          scrollToTopBtn.style.display = "flex";
+        } else {
+          scrollToTopBtn.style.display = "none";
+        }
+      });
+      scrollToTopBtn.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
     </script>
   </body>
 </html>
