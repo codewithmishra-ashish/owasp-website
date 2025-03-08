@@ -2,7 +2,7 @@
 
 Welcome to the official website of the OWASP (Open Web Application Security Project) Chapter at Maulana Azad National Institute of Technology (MANIT), Bhopal. This project serves as a platform to promote cybersecurity awareness, host events, share threat intelligence, and engage the community in secure coding practices.
 
-- **Website URL**: [[Deployed Site Link](https://codewithmishra-ashish.github.io/owasp-website/)] 
+- **Website URL**: [[OWASP-MANIT](https://codewithmishra-ashish.github.io/owasp-website/)] 
 - **Current Date**: March 08, 2025
 
 ## Table of Contents
