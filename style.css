@@ -376,6 +376,9 @@ footer {
     flex: 0 0 calc(50% - 20px);
     max-width: calc(50% - 20px);
   }
+  .social-links {
+    display: none;
+  }
 }
 @media (max-width: 576px) {
   .card-container .col-md-3 {
