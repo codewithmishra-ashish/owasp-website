@@ -89,6 +89,9 @@ body {
   position: relative;
   border-bottom: 2px solid #00ff00;
   margin-bottom: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .hero::before {
   content: "";
@@ -98,6 +101,10 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.9);
+}
+.hero .container {
+  position: relative;
+  z-index: 1;
 }
 .hero h1,
 .hero p,
@@ -291,13 +298,13 @@ footer {
   font-size: 0.9rem;
 }
 .social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   position: fixed;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
   z-index: 1000;
 }
 .social-links a {
@@ -366,8 +373,14 @@ footer {
     margin: 10px 0;
   }
   .social-links {
-    right: 5px;
-    gap: 10px;
+    position: absolute;
+    top: auto;
+    bottom: -60px;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 20px;
   }
   .social-links a {
     font-size: 1.2rem;
@@ -375,9 +388,6 @@ footer {
   .card-container .col-md-3 {
     flex: 0 0 calc(50% - 20px);
     max-width: calc(50% - 20px);
-  }
-  .social-links {
-    display: none;
   }
 }
 @media (max-width: 576px) {
